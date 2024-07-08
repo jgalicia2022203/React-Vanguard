@@ -1,0 +1,163 @@
+import axios from 'axios';
+
+const API = axios.create({
+    baseURL: 'http://localhost:8080/vanguard/v1',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+// Auth API calls
+export const login = async (credentials) => {
+    try {
+        const response = await API.post('/auth/login', credentials);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+// Customer API calls
+export const createCustomer = async (customerData) => {
+    try {
+        const response = await API.post('/customers', customerData);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+export const getCustomerById = async (id) => {
+    try {
+        const response = await API.get(`/customers/${id}`);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+// Account API calls
+export const getAccountById = async (id) => {
+    try {
+        const response = await API.get(`/accounts/${id}`);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+export const deactivateAccount = async (id) => {
+    try {
+        const response = await API.patch(`/accounts/deactivate/${id}`);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+export const closeAccount = async (id) => {
+    try {
+        const response = await API.patch(`/accounts/close/${id}`);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+// Transaction API calls
+export const deposit = async (transactionData) => {
+    try {
+        const response = await API.post('/transactions/deposit', transactionData);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+export const withdraw = async (transactionData) => {
+    try {
+        const response = await API.post('/transactions/withdraw', transactionData);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+export const transfer = async (transactionData) => {
+    try {
+        const response = await API.post('/transactions/transfer', transactionData);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+export const getTransactionHistory = async (account_no) => {
+    try {
+        const response = await API.get(`/transactions/${account_no}`);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+export const fetchProducts = async () => {
+    try {
+        const response = await API.get('/products')
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+export const addToCart = async (productId) => {
+    try {
+        const response = await API.post('/products/cart', { product_service_id: productId });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+}
+export const fetchFavorites = async () => {
+    try {
+        const response = await API.get('/favorites');
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+}
+export const deleteFavorite = async (favoriteId) => {
+    try {
+        const response = await API.delete(`/favorites/${favoriteId}`);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+}
+
+export const updateSettings = async (settingsData) => {
+    try {
+        const response = await API.put('/customers/me', settingsData);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+}
+
+export const fetchCartItems = async () => {
+    try {
+        const response = await API.get('/cart');
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+}
+
+export const purchaseCart = async () => {
+    try {
+        const response = await API.post('/transactions/purchase');
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+}
+
