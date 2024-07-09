@@ -18,34 +18,106 @@ import ProductsServicesPage from './pages/client/ProductsServicesPage';
 import SettingsPage from './pages/client/SettingsPage';
 import ShoppingCartPage from './pages/client/ShoppingCartPage';
 import TransferPage from './pages/client/TransferPage';
+import ProtectedRoute from './shared/validators/ProtectedRoute';
 
 const AppRoutes = () => {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<LoginPage />} />
-                <Route path="/home" element={<HomePage />} />
-                <Route path="/transfer" element={<TransferPage />} />
-                <Route path="/products" element={<ProductsServicesPage />} />
-                <Route path='/settings' element={<SettingsPage />} />
-                <Route path='/favorites' element={<FavoriteAccountsPage />} />
-                <Route path='/transactions' element={<HistoryPage />} />
-                <Route path='/cart' element={<ShoppingCartPage />} />
-                <Route path='/admin/home' element={<AdminHomePage />} />
-                <Route path='/admin/customers' element={<CustomerAccountsPage />} />
-                <Route path='/admin/register-customer' element={<RegisterCustomerPage />} />
-                <Route path='/admin/accounts-information' element={<AccountsInformationPage />} />
-                <Route path='/admin/account-information' element={<AccountInformationPage />} />
-                <Route path='/admin/customer-information' element={<CustomerInformationPage />} />
-                <Route path='/admin/products-services' element={<AdminProductsServicesPage />} />
-                <Route path='/admin/settings' element={<AdminSettingsPage />} /> 
-                <Route path='/admin/credit' element={<CreditPage />} />
-                <Route path='/admin/deposit' element={<DepositPage />} />
-                <Route path='/admin/history' element={<AdminHistoryPage />} />
-            </Routes>
-        </Router>
-    );
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/home" element={
+          <ProtectedRoute role="client">
+            <HomePage />
+          </ProtectedRoute>
+        } />
+        <Route path="/transfer" element={
+          <ProtectedRoute role="client">
+            <TransferPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/products" element={
+          <ProtectedRoute role="client">
+            <ProductsServicesPage />
+          </ProtectedRoute>
+        } />
+        <Route path='/settings' element={
+          <ProtectedRoute role="client">
+            <SettingsPage />
+          </ProtectedRoute>
+        } />
+        <Route path='/favorites' element={
+          <ProtectedRoute role="client">
+            <FavoriteAccountsPage />
+          </ProtectedRoute>
+        } />
+        <Route path='/transactions' element={
+          <ProtectedRoute role="client">
+            <HistoryPage />
+          </ProtectedRoute>
+        } />
+        <Route path='/cart' element={
+          <ProtectedRoute role="client">
+            <ShoppingCartPage />
+          </ProtectedRoute>
+        } />
+        <Route path='/admin/home' element={
+          <ProtectedRoute role="admin">
+            <AdminHomePage />
+          </ProtectedRoute>
+        } />
+        <Route path='/admin/customers' element={
+          <ProtectedRoute role="admin">
+            <CustomerAccountsPage />
+          </ProtectedRoute>
+        } />
+        <Route path='/admin/register-customer' element={
+          <ProtectedRoute role="admin">
+            <RegisterCustomerPage />
+          </ProtectedRoute>
+        } />
+        <Route path='/admin/accounts-information' element={
+          <ProtectedRoute role="admin">
+            <AccountsInformationPage />
+          </ProtectedRoute>
+        } />
+        <Route path='/admin/account-information' element={
+          <ProtectedRoute role="admin">
+            <AccountInformationPage />
+          </ProtectedRoute>
+        } />
+        <Route path='/admin/customer-information' element={
+          <ProtectedRoute role="admin">
+            <CustomerInformationPage />
+          </ProtectedRoute>
+        } />
+        <Route path='/admin/products-services' element={
+          <ProtectedRoute role="admin">
+            <AdminProductsServicesPage />
+          </ProtectedRoute>
+        } />
+        <Route path='/admin/settings' element={
+          <ProtectedRoute role="admin">
+            <AdminSettingsPage />
+          </ProtectedRoute>
+        } /> 
+        <Route path='/admin/credit' element={
+          <ProtectedRoute role="admin">
+            <CreditPage />
+          </ProtectedRoute>
+        } />
+        <Route path='/admin/deposit' element={
+          <ProtectedRoute role="admin">
+            <DepositPage />
+          </ProtectedRoute>
+        } />
+        <Route path='/admin/history' element={
+          <ProtectedRoute role="admin">
+            <AdminHistoryPage />
+          </ProtectedRoute>
+        } />
+      </Routes>
+    </Router>
+  );
 }
-
 
 export default AppRoutes;

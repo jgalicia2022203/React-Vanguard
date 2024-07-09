@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 const Sidebar = () => {
   return (
     <nav className="w-64 h-screen bg-gray-900 p-6">
-      <div className="text-center mb-8">
-        <img src="/img/logo.png" alt="Vanguard" className="w-16 mx-auto mb-4" />
+      <div className="items-center mb-8 flex flex-row">
+        <img src="/img/Vanguard.svg" alt="Vanguard" className="w-10 m-3" />
         <h1 className="text-xl font-bold">Vanguard</h1>
       </div>
       <ul className="space-y-4">
