@@ -36,7 +36,25 @@ export const getCustomerById = async (id) => {
     }
 };
 
+export const updateCustomer = async (id, customerData) => {
+    try {
+        const response = await API.put(`/customers/${id}`, customerData);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
 // Account API calls
+export const fetchAccounts = async () => {
+    try {
+        const response = await API.get('/accounts');
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
 export const getAccountById = async (id) => {
     try {
         const response = await API.get(`/accounts/${id}`);
@@ -92,65 +110,14 @@ export const transfer = async (transactionData) => {
     }
 };
 
-export const getTransactionHistory = async (account_no) => {
+export const requestCredit = async (transactionData) => {
     try {
-        const response = await API.get(`/transactions/${account_no}`);
+        const response = await API.post('/transactions/credit', transactionData);
         return response.data;
     } catch (error) {
         throw error.response.data;
     }
 };
-
-export const fetchProducts = async () => {
-    try {
-        const response = await API.get('/products')
-        return response.data;
-    } catch (error) {
-        throw error.response.data;
-    }
-};
-export const addToCart = async (productId) => {
-    try {
-        const response = await API.post('/products/cart', { product_service_id: productId });
-        return response.data;
-    } catch (error) {
-        throw error.response.data;
-    }
-}
-export const fetchFavorites = async () => {
-    try {
-        const response = await API.get('/favorites');
-        return response.data;
-    } catch (error) {
-        throw error.response.data;
-    }
-}
-export const deleteFavorite = async (favoriteId) => {
-    try {
-        const response = await API.delete(`/favorites/${favoriteId}`);
-        return response.data;
-    } catch (error) {
-        throw error.response.data;
-    }
-}
-
-export const updateSettings = async (settingsData) => {
-    try {
-        const response = await API.put('/customers/me', settingsData);
-        return response.data;
-    } catch (error) {
-        throw error.response.data;
-    }
-}
-
-export const fetchCartItems = async () => {
-    try {
-        const response = await API.get('/cart');
-        return response.data;
-    } catch (error) {
-        throw error.response.data;
-    }
-}
 
 export const purchaseCart = async () => {
     try {
@@ -159,5 +126,116 @@ export const purchaseCart = async () => {
     } catch (error) {
         throw error.response.data;
     }
-}
+};
 
+export const getTransactionHistory = async (accountNo) => {
+    try {
+        const response = await API.get(`/transactions/${accountNo}`);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+export const fetchAllTransactions = async () => {
+    try {
+        const response = await API.get('/transactions');
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+// Product & Service API calls
+export const fetchProducts = async () => {
+    try {
+        const response = await API.get('/products');
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+export const addProduct = async (productData) => {
+    try {
+        const response = await API.post('/products', productData);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+export const getProductById = async (productId) => {
+    try {
+        const response = await API.get(`/products/${productId}`);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+export const updateProduct = async (productId, productData) => {
+    try {
+        const response = await API.put(`/products/${productId}`, productData);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+export const deleteProduct = async (productId) => {
+    try {
+        const response = await API.delete(`/products/${productId}`);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+// Cart API calls
+export const fetchCartItems = async () => {
+    try {
+        const response = await API.get('/cart');
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+export const addToCart = async (productId) => {
+    try {
+        const response = await API.post('/products/cart', { product_service_id: productId });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+// Favorite API calls
+export const fetchFavorites = async () => {
+    try {
+        const response = await API.get('/favorites');
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+export const deleteFavorite = async (favoriteId) => {
+    try {
+        const response = await API.delete(`/favorites/${favoriteId}`);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+// Settings API calls
+export const updateSettings = async (settingsData) => {
+    try {
+        const response = await API.put('/customers/me', settingsData);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};

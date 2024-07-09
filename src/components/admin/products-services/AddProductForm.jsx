@@ -1,27 +1,13 @@
-/* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react';
-import { getProductById, updateProduct } from '../../../services/axios';
+import { useState } from 'react';
+import { addProduct } from '../../../services/axios';
 
-const EditProductForm = ({ productId }) => {
+const AddProductForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     price: '',
-    type: '',
+    type: 'product',
   });
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await getProductById(productId);
-        setFormData(response.data);
-      } catch (error) {
-        console.error('Error fetching product details:', error);
-      }
-    };
-
-    fetchProduct();
-  }, [productId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,11 +20,11 @@ const EditProductForm = ({ productId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await updateProduct(productId, formData);
-      alert('Product updated successfully');
+      await addProduct(formData);
+      alert('Product added successfully');
     } catch (error) {
-      console.error('Error updating product:', error);
-      alert('Failed to update product');
+      console.error('Error adding product:', error);
+      alert('Failed to add product');
     }
   };
 
@@ -90,10 +76,10 @@ const EditProductForm = ({ productId }) => {
         type="submit"
         className="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
       >
-        Save
+        Add Product
       </button>
     </form>
   );
 };
 
-export default EditProductForm;
+export default AddProductForm;
