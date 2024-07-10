@@ -1,25 +1,9 @@
-import { useEffect, useState } from 'react';
-import { fetchProducts } from '../../../services/axios';
-import ProductCard from './ProductCard';
+/* eslint-disable react/prop-types */
+import ProductCard from "./ProductCard";
 
-const ProductList = () => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const response = await fetchProducts();
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-
-    getProducts();
-  }, []);
-
+const ProductsList = ({ products }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {products.map((product) => (
         <ProductCard key={product._id} product={product} />
       ))}
@@ -27,4 +11,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default ProductsList;

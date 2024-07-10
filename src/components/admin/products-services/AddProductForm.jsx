@@ -1,84 +1,91 @@
-import { useState } from 'react';
-import { addProduct } from '../../../services/axios';
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { addProduct } from "../../../services/axios";
 
-const AddProductForm = () => {
+const AddProductForm = ({ onClose, onAdd }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    price: '',
-    type: 'product',
+    name: "",
+    description: "",
+    price: "",
+    imageUrl: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addProduct(formData);
-      alert('Product added successfully');
+      const newProduct = await addProduct(formData);
+      onAdd(newProduct);
+      toast.success("Product added successfully");
+      onClose();
     } catch (error) {
-      console.error('Error adding product:', error);
-      alert('Failed to add product');
+      toast.error(`Failed to add product: ${error.message}`);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium text-gray-700">Name</label>
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
-        />
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="w-3/4 p-6 bg-white rounded-lg lg:w-1/2">
+        <h2 className="mb-4 text-2xl font-bold">Add Product</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Name"
+            className="w-full p-2 border rounded"
+          />
+          <input
+            type="text"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="Description"
+            className="w-full p-2 border rounded"
+          />
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            placeholder="Price"
+            className="w-full p-2 border rounded"
+          />
+          <input
+            type="text"
+            name="imageUrl"
+            value={formData.imageUrl}
+            onChange={handleChange}
+            placeholder="Image URL"
+            className="w-full p-2 border rounded"
+          />
+          <div className="flex justify-end space-x-4">
+            <button
+              type="button"
+              onClick={onClose}
+              className="p-2 bg-gray-500 rounded hover:bg-gray-600"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="p-2 bg-blue-500 rounded hover:bg-blue-600"
+            >
+              Add
+            </button>
+          </div>
+        </form>
       </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700">Description</label>
-        <input
-          type="text"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700">Price</label>
-        <input
-          type="number"
-          name="price"
-          value={formData.price}
-          onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700">Type</label>
-        <select
-          name="type"
-          value={formData.type}
-          onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
-        >
-          <option value="product">Product</option>
-          <option value="service">Service</option>
-        </select>
-      </div>
-      <button
-        type="submit"
-        className="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
-      >
-        Add Product
-      </button>
-    </form>
+    </div>
   );
 };
 

@@ -13,6 +13,7 @@ const LoginForm = () => {
     try {
       const response = await login({ username, password });
       localStorage.setItem("token", response.token);
+      localStorage.setItem("user", JSON.stringify(response.customer));
       if (response.customer.role === "admin") {
         navigate("/admin/home");
       } else {
