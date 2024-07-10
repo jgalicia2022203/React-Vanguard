@@ -1,33 +1,32 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react';
-import { getTransactionHistory } from '../../../services/axios';
+import { useEffect, useState } from "react";
+import { getTransactionHistory } from "../../../services/axios";
 
-const RecentTransactionsList = ({ accountNo }) => {
+const RecentTransactionsList = ({ accountId }) => {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await getTransactionHistory(accountNo);
-        setTransactions(response.data);
+        const data = await getTransactionHistory(accountId);
+        setTransactions(data.slice(0, 5));
       } catch (error) {
-        console.error('Error fetching transaction history:', error);
+        console.error("Error fetching transactions:", error);
       }
     };
 
     fetchTransactions();
-  }, [accountNo]);
+  }, [accountId]);
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-4 mt-4">
-      <h2 className="text-lg font-bold mb-4">Recent Transactions</h2>
-      <ul className="divide-y divide-gray-200">
+    <div>
+      <h2 className="mb-4 text-xl font-bold">Recent Transactions</h2>
+      <ul>
         {transactions.map((transaction) => (
-          <li key={transaction._id} className="py-2">
-            <p className="text-gray-700">
-              {transaction.transaction_type}: ${transaction.amount.toFixed(2)}
-            </p>
-            <p className="text-gray-500 text-sm">{transaction.date}</p>
+          <li key={transaction._id} className="p-2 mb-2 bg-gray-800 rounded">
+            <p>{transaction.date}</p>
+            <p>{transaction.description}</p>
+            <p>{transaction.amount}</p>
           </li>
         ))}
       </ul>

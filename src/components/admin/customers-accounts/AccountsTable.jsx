@@ -31,10 +31,6 @@ const AccountsTable = ({ accounts }) => {
               >
                 View
               </button>
-              <button className="px-4 py-2 font-bold text-white bg-yellow-500 rounded">
-                Deactivate
-              </button>
-              <button className="p-2 px-4 bg-red-500 rounded">Close</button>
             </td>
           </tr>
         ))}

@@ -1,34 +1,91 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react';
-import { getCustomerById } from '../../../services/axios';
+const CustomerDetails = ({ customer, onEdit }) => {
+  const {
+    name,
+    username,
+    gov_id,
+    address = {},
+    cell_phone,
+    email_address,
+    work_name,
+    monthly_income,
+  } = customer;
 
-const CustomerDetails = ({ customerId }) => {
-  const [customer, setCustomer] = useState(null);
-
-  useEffect(() => {
-    const fetchCustomer = async () => {
-      try {
-        const response = await getCustomerById(customerId);
-        setCustomer(response.data);
-      } catch (error) {
-        console.error('Error fetching customer details:', error);
-      }
-    };
-
-    fetchCustomer();
-  }, [customerId]);
-
-  if (!customer) return <div>Loading...</div>;
+  const { street = "", city = "", state = "", zip = "" } = address;
 
   return (
-    <div>
-      <h2 className="text-lg font-bold">Customer Details</h2>
-      <p>Name: {customer.name}</p>
-      <p>Username: {customer.username}</p>
-      <p>Email: {customer.email_address}</p>
-      <p>Phone: {customer.cell_phone}</p>
-      <p>Address: {customer.address.street}, {customer.address.city}, {customer.address.state}, {customer.address.zip}</p>
-      <p>Monthly Income: ${customer.monthly_income.toFixed(2)}</p>
+    <div className="grid grid-cols-2 gap-4">
+      <div className="flex justify-end col-span-2">
+        <button onClick={onEdit} className="text-gray-400 hover:text-white">
+          ✏️
+        </button>
+      </div>
+      <div>
+        <p>
+          <strong>Name</strong>
+        </p>
+        <p>{name}</p>
+      </div>
+      <div>
+        <p>
+          <strong>Cellphone</strong>
+        </p>
+        <p>{cell_phone}</p>
+      </div>
+      <div>
+        <p>
+          <strong>Username</strong>
+        </p>
+        <p>{username}</p>
+      </div>
+      <div>
+        <p>
+          <strong>Email Address</strong>
+        </p>
+        <p>{email_address}</p>
+      </div>
+      <div>
+        <p>
+          <strong>ID</strong>
+        </p>
+        <p>{gov_id}</p>
+      </div>
+      <div>
+        <p>
+          <strong>Work Name</strong>
+        </p>
+        <p>{work_name}</p>
+      </div>
+      <div>
+        <p>
+          <strong>Street</strong>
+        </p>
+        <p>{street}</p>
+      </div>
+      <div>
+        <p>
+          <strong>City</strong>
+        </p>
+        <p>{city}</p>
+      </div>
+      <div>
+        <p>
+          <strong>State</strong>
+        </p>
+        <p>{state}</p>
+      </div>
+      <div>
+        <p>
+          <strong>Zip</strong>
+        </p>
+        <p>{zip}</p>
+      </div>
+      <div>
+        <p>
+          <strong>Monthly Income</strong>
+        </p>
+        <p>{monthly_income}</p>
+      </div>
     </div>
   );
 };

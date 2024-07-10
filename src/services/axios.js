@@ -54,6 +54,7 @@ export const updateCustomer = async (id, customerData) => {
     const response = await API.put(`/customers/${id}`, customerData);
     return response.data;
   } catch (error) {
+    console.error("Update error:", error.response.data);
     throw error.response.data;
   }
 };
