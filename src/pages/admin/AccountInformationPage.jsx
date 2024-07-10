@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import AccountActions from '../../components/admin/customers-accounts/AccountActions';
-import AccountDetails from '../../components/admin/customers-accounts/AccountDetails';
-import { fetchAccounts } from '../../services/axios';
+import { useEffect, useState } from "react";
+import AccountActions from "../../components/admin/customers-accounts/AccountActions";
+import AccountDetails from "../../components/admin/customers-accounts/AccountDetails";
+import { listAccounts } from "../../services/axios";
 
 const AccountInformationPage = () => {
   const [accounts, setAccounts] = useState([]);
@@ -9,10 +9,10 @@ const AccountInformationPage = () => {
   useEffect(() => {
     const getAccounts = async () => {
       try {
-        const response = await fetchAccounts();
+        const response = await listAccounts();
         setAccounts(response.data);
       } catch (error) {
-        console.error('Error fetching accounts:', error);
+        console.error("Error fetching accounts:", error);
       }
     };
 
@@ -20,10 +20,13 @@ const AccountInformationPage = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Accounts Information</h1>
+    <div className="container p-4 mx-auto">
+      <h1 className="mb-4 text-2xl font-bold">Accounts Information</h1>
       {accounts.map((account) => (
-        <div key={account._id} className="bg-white shadow-md rounded-lg p-4 mb-4">
+        <div
+          key={account._id}
+          className="p-4 mb-4 bg-white rounded-lg shadow-md"
+        >
           <AccountDetails accountId={account._id} />
           <AccountActions accountId={account._id} />
         </div>

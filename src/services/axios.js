@@ -59,9 +59,9 @@ export const updateCustomer = async (id, customerData) => {
 };
 
 // Account API calls
-export const fetchAccounts = async () => {
+export const listAccounts = async () => {
   try {
-    const response = await API.get("/accounts");
+    const response = await API.get(`/accounts`);
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -89,6 +89,15 @@ export const deactivateAccount = async (id) => {
 export const closeAccount = async (id) => {
   try {
     const response = await API.patch(`/accounts/close/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const searchAccounts = async (query) => {
+  try {
+    const response = await API.get(`/accounts/search?query=${query}`);
     return response.data;
   } catch (error) {
     throw error.response.data;
