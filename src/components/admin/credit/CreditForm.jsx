@@ -1,69 +1,74 @@
-import { useState } from 'react';
-import { requestCredit } from '../../../services/axios';
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { requestCredit } from "../../../services/axios";
 
 const CreditForm = () => {
   const [formData, setFormData] = useState({
-    account_no: '',
-    amount: '',
-    description: '',
+    account_no: "",
+    amount: "",
+    description: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await requestCredit(formData);
-      alert('Credit requested successfully');
+      toast.success("Credit registered successfully");
+      setFormData({
+        account_no: "",
+        amount: "",
+        description: "",
+      });
     } catch (error) {
-      console.error('Error requesting credit:', error);
-      alert('Failed to request credit');
+      toast.error(`Failed to register credit: ${error.message}`);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700">Account No</label>
+        <label className="block mb-1 text-white">Account no.</label>
         <input
           type="text"
           name="account_no"
           value={formData.account_no}
           onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
+          className="w-full p-2 text-white bg-gray-800 rounded"
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700">Amount</label>
+        <label className="block mb-1 text-white">Amount to deposit</label>
         <input
           type="number"
           name="amount"
           value={formData.amount}
           onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
+          className="w-full p-2 text-white bg-gray-800 rounded"
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700">Description</label>
+        <label className="block mb-1 text-white">Description</label>
         <input
           type="text"
           name="description"
           value={formData.description}
           onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
+          className="w-full p-2 text-white bg-gray-800 rounded"
         />
       </div>
       <button
         type="submit"
-        className="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+        className="w-full p-2 bg-blue-500 rounded hover:bg-blue-700"
       >
-        Request Credit
+        Credit
       </button>
     </form>
   );
