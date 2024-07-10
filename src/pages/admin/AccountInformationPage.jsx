@@ -10,6 +10,7 @@ import { getAccountById } from "../../services/axios";
 const AccountInformationPage = () => {
   const { id } = useParams();
   const [account, setAccount] = useState(null);
+  const [transactions, setTransactions] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,6 +18,7 @@ const AccountInformationPage = () => {
       try {
         const data = await getAccountById(id);
         setAccount(data.account);
+        setTransactions(data.transactions);
       } catch (error) {
         console.error("Error fetching account:", error);
       }
@@ -50,7 +52,7 @@ const AccountInformationPage = () => {
           </div>
           <AccountDetails account={account} />
           <AccountActions accountId={account._id} />
-          <RecentTransactionsList accountId={account._id} />
+          <RecentTransactionsList transactions={transactions} />
         </div>
       </div>
     </div>

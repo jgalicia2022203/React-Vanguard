@@ -160,14 +160,6 @@ export const getTransactionHistory = async (accountNo) => {
   }
 };
 
-export const fetchAllTransactions = async () => {
-  try {
-    const response = await API.get("/transactions");
-    return response.data;
-  } catch (error) {
-    throw error.response.data;
-  }
-};
 
 // Product & Service API calls
 export const getProducts = async () => {

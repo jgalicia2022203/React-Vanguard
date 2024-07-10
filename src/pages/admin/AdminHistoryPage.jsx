@@ -1,27 +1,36 @@
-import { useEffect, useState } from 'react';
-import AdminTransactionList from '../../components/admin/history/AdminTransactionList';
-import { fetchAllTransactions } from '../../services/axios';
+import { useEffect, useState } from "react";
+import AdminTransactionList from "../../components/admin/history/AdminTransactionList";
+import Navbar from "../../components/admin/home/Navbar";
+import Sidebar from "../../components/admin/home/Sidebar";
+import { getTransactionHistory } from "../../services/axios";
 
 const AdminHistoryPage = () => {
   const [transactions, setTransactions] = useState([]);
-
+  const user = JSON.parse(localStorage.getItem("user"));
+  const accountNo = user?.account_no;
   useEffect(() => {
-    const getTransactions = async () => {
+    const fetchTransactions = async () => {
       try {
-        const response = await fetchAllTransactions();
-        setTransactions(response.data);
+        const data = await getTransactionHistory(accountNo);
+        setTransactions(data);
       } catch (error) {
-        console.error('Error fetching transactions:', error);
+        console.error("Error fetching transactions:", error);
       }
     };
 
-    getTransactions();
+    fetchTransactions();
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Transaction History</h1>
-      <AdminTransactionList transactions={transactions} />
+    <div className="flex min-h-screen text-white bg-black">
+      <Sidebar />
+      <div className="flex flex-col flex-1">
+        <Navbar />
+        <div className="flex-1 p-6">
+          <h1 className="mb-6 text-2xl font-bold">Your History</h1>
+          <AdminTransactionList transactions={transactions} />
+        </div>
+      </div>
     </div>
   );
 };
