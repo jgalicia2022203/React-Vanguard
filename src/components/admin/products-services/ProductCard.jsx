@@ -19,9 +19,7 @@ const ProductCard = ({ product }) => {
     setIsEditing(false);
   };
 
-  const handleUpdateProduct = (updatedProduct) => {
-    // Logic to update the product in the product list
-  };
+  const handleUpdateProduct = () => {};
 
   return (
     <div className="p-4 border rounded-lg">

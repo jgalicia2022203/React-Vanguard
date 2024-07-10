@@ -2,24 +2,24 @@ import { useEffect, useState } from "react";
 import Navbar from "../../components/admin/home/Navbar";
 import Sidebar from "../../components/admin/home/Sidebar";
 import AddProductForm from "../../components/admin/products-services/AddProductForm";
-import ProductsList from "../../components/admin/products-services/ProductList";
-import { fetchProducts } from "../../services/axios";
+import ProductList from "../../components/admin/products-services/ProductList";
+import { getProducts } from "../../services/axios";
 
 const AdminProductsServicesPage = () => {
   const [products, setProducts] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
-    const getProducts = async () => {
+    const fetchProducts = async () => {
       try {
-        const data = await fetchProducts();
+        const data = await getProducts();
         setProducts(data.products);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
 
-    getProducts();
+    fetchProducts();
   }, []);
 
   const handleAddClick = () => {
@@ -49,7 +49,7 @@ const AdminProductsServicesPage = () => {
           >
             Add Product
           </button>
-          <ProductsList products={products} />
+          <ProductList products={products} />
           {isAdding && (
             <AddProductForm
               onClose={handleCloseModal}

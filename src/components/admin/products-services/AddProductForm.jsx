@@ -9,6 +9,7 @@ const AddProductForm = ({ onClose, onAdd }) => {
     description: "",
     price: "",
     imageUrl: "",
+    type: "product",
   });
 
   const handleChange = (e) => {
@@ -33,9 +34,9 @@ const AddProductForm = ({ onClose, onAdd }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-3/4 p-6 bg-white rounded-lg lg:w-1/2">
+      <div className="w-3/4 p-6 bg-black rounded-lg lg:w-1/2">
         <h2 className="mb-4 text-2xl font-bold">Add Product</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 text-black">
           <input
             type="text"
             name="name"
@@ -68,6 +69,15 @@ const AddProductForm = ({ onClose, onAdd }) => {
             placeholder="Image URL"
             className="w-full p-2 border rounded"
           />
+          <select
+            name="type"
+            value={formData.type}
+            onChange={handleChange}
+            className="w-full p-2 border rounded"
+          >
+            <option value="product">Product</option>
+            <option value="service">Service</option>
+          </select>
           <div className="flex justify-end space-x-4">
             <button
               type="button"

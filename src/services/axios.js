@@ -170,7 +170,7 @@ export const fetchAllTransactions = async () => {
 };
 
 // Product & Service API calls
-export const fetchProducts = async () => {
+export const getProducts = async () => {
   try {
     const response = await API.get("/products");
     return response.data;
@@ -197,18 +197,18 @@ export const getProductById = async (productId) => {
   }
 };
 
-export const updateProduct = async (productId, productData) => {
+export const updateProduct = async (id, productData) => {
   try {
-    const response = await API.put(`/products/${productId}`, productData);
+    const response = await API.put(`/products/${id}`, productData);
     return response.data;
   } catch (error) {
     throw error.response.data;
   }
 };
 
-export const deleteProduct = async (productId) => {
+export const deleteProduct = async (id) => {
   try {
-    const response = await API.delete(`/products/${productId}`);
+    const response = await API.delete(`/products/${id}`);
     return response.data;
   } catch (error) {
     throw error.response.data;

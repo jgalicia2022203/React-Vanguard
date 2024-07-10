@@ -15,7 +15,7 @@ const DeleteProductButton = ({ productId, onClose }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="p-6 bg-white rounded-lg">
+      <div className="p-6 text-white bg-black rounded-lg">
         <h2 className="mb-4 text-2xl font-bold">Confirm Deletion</h2>
         <p>Are you sure you want to delete this product?</p>
         <div className="flex justify-end mt-4 space-x-4">
