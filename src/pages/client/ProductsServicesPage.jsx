@@ -1,10 +1,18 @@
-import ProductList from '../../components/client/products-services/ProductList';
+import Navbar from "../../components/client/home/Navbar";
+import Sidebar from "../../components/client/home/Sidebar";
+import ProductList from "../../components/client/products-services/ProductList";
 
 const ProductsServicesPage = () => {
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Products & Services</h1>
-      <ProductList />
+    <div className="flex min-h-screen text-white bg-black">
+      <Sidebar />
+      <div className="flex flex-col flex-1">
+        <Navbar />
+        <div className="p-6">
+          <h1 className="mb-4 text-2xl font-bold">Products & Services</h1>
+          <ProductList />
+        </div>
+      </div>
     </div>
   );
 };

@@ -31,6 +31,15 @@ export const login = async (credentials) => {
 };
 
 // Customer API calls
+export const getAccountByAccountNo = async (accountNo) => {
+  try {
+    const response = await API.get(`/accounts/by-account-no/${accountNo}`);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 export const createCustomer = async (customerData) => {
   try {
     const response = await API.post("/customers", customerData);
@@ -142,9 +151,9 @@ export const requestCredit = async (transactionData) => {
   }
 };
 
-export const purchaseCart = async () => {
+export const purchaseCart = async (data) => {
   try {
-    const response = await API.post("/transactions/purchase");
+    const response = await API.post("products/purchase", data);
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -159,7 +168,6 @@ export const getTransactionHistory = async (accountNo) => {
     throw error.response.data;
   }
 };
-
 
 // Product & Service API calls
 export const getProducts = async () => {
@@ -207,21 +215,20 @@ export const deleteProduct = async (id) => {
   }
 };
 
-// Cart API calls
 export const fetchCartItems = async () => {
   try {
-    const response = await API.get("/cart");
+    const user = JSON.parse(localStorage.getItem("user"));
+    const customer_id = user._id;
+    console.log(customer_id);
+    const response = await API.get(`/products/cart/${customer_id}`);
     return response.data;
   } catch (error) {
     throw error.response.data;
   }
 };
-
-export const addToCart = async (productId) => {
+export const addItemToCart = async (itemData) => {
   try {
-    const response = await API.post("/products/cart", {
-      product_service_id: productId,
-    });
+    const response = await API.post("products/cart", itemData);
     return response.data;
   } catch (error) {
     throw error.response.data;
